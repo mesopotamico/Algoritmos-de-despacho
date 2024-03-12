@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./estilos1.css">
+    <title>SJF</title>
+</head>
+<body>
+    <h1>FIFO</h1>
+	<main>
+        <form class="formulario" id="formulario">
+            <div class="formulario__grupo" id="grupo__N.procesos">
+                <label for="N.procesos" class="formulario__label">Numero de procesos</label>
+                <div class="formulario__grupo-input">
+                    <input type="number" class="formulario__input" name="N.procesos" id="N.procesos" min="0" placeholder="Escribe un Numero">
+                </div>
+            </div>
+
+            <div class="formulario__grupo formulario__grupo-btn-enviar">
+                <button id="boton_enviar" type="button" class="formulario__btn" onclick="enviarNumeroProcesos()">Enviar</button>
+            </div>
+
+           
+        </form>
+	 </main>
+	 <script src="./fifo.js"></script>
+</body>
+</html>

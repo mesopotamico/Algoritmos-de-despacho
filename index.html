@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="estilos.css">
+    <title>Sistemas operativos</title>
+</head>
+<body>
+    <div class="hero" id="hero">
+        <h1>Algoritmos de despacho</h1>
+        <p>FIFO • SJF • PRIORIDAD • ROUND ROBIN </p>
+    </div>
+
+    <nav id="menu">
+        <a href="#1">Fifo</a>
+        <a href="#2">SJF</a>
+        <a href="#3">Prioridad</a>
+        <a href="#4">Round Robin</a>
+        <span class="indicador" id="indicador"></span>
+    </nav>
+
+    <div class="secciones">
+        <div class="seccion" id="1">
+            <div class="card">
+                <h1>FIFO</h1>
+                <img src="img/1.png" alt="">
+                <p>Llamado FIFO (del inglés First In, First Out). Este algoritmo es muy sencillo y simple, pero también el que menos rendimiento ofrece, básicamente en este algoritmo el primer proceso que llega se ejecuta y una vez terminado se ejecuta el siguiente.</p>
+                <a href="fifo.html"><button class="boton-personalizado">FIFO</button></a>
+            </div>
+        </div>
+
+        <div class="seccion" id="2">
+            <div class="card">
+                <h1>SJF</h1>
+                <img src="img/2.png" alt="">
+                <p>(Shortest Job First) este algoritmo siempre prioriza los procesos más cortos primero independientemente de su llegada y en caso de que los procesos sean iguales utilizara el método FIFO anterior, es decir, el orden según entrada. Este sistema tiene el riesgo de poner siempre al final de la cola los procesos más largos por lo que nunca se ejecutarán, esto se conoce como inanición.</p>
+                <a href="sjf.html"><button class="boton-personalizado">SJF</button></a>
+            </div>
+        </div>
+
+        <div class="seccion" id="3">
+            <div class="card">
+                <h1>Prioridad</h1>
+                <img src="img/3.png" alt="">
+                <p>En este proceso a cada proceso se le asocia un numero entero de prioridad, la prioridad se caracteriza por el valor numérico, mientras el numero sea mas pequeño la prioridad es mayor , y mientras mas grande la prioridad sera menor. </p>
+                <a href="prioridad.html"><button class="boton-personalizado">Prioridad</button></a>
+            </div>
+        </div>
+
+        <div class="seccion" id="4">
+            <div class="card">
+                <h1>Round Robin</h1>
+                <img src="img/4.png" alt="">
+                <p>Round Robin, este algoritmo de planificación es uno de los más complejos y difíciles de implementar, asigna a cada proceso un tiempo equitativo tratando a todos los procesos por igual y con la misma prioridad.</p>
+                <a href="round_robin.html"><button class="boton-personalizado">Round Robin</button></a>
+            </div>
+        </div>
+
+    </div>
+
+    
+</body>
+</html>
