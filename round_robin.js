@@ -88,33 +88,31 @@ function crearTable(tl, tr, wt, ts, n) {
     
 }
 
+function round_robin(tl, tr, q) {
+    const n = tl.length;
+    const wt = new Array(n).fill(0); // Tiempo de espera
+    const ts = new Array(n).fill(0); // Tiempo de sistema
 
-function roundRobin(tl, tr, q) {
-    let n = tl.length;
-    let wt = new Array(n).fill(0); // Tiempo de espera
-    let ts = new Array(n).fill(0); // Tiempo de sistema
-
-
-    let tiempo_inicio = new Array(n).fill(0);
-    let tiempos_finalizacion = new Array(n).fill(0);
-    let procesos_ordenados = new Array(n).fill(0);
+    const tiempo_inicio = [];
+    const tiempos_finalizacion = [];
+    const procesos_ordenados = [];  // Lista para almacenar los procesos ordenados
+    let j = 0;
 
     let proccess = new Array(n).fill(1);
     let t_eje = 0;
-    let remaining_tr = [...tr]; // tiempo restantes de ráfaga
-    let actual_tl = [...tl]; // tiempo de llegada actual
-    let reamaing_n = n; // procesos restantes
-    let completed = n; // variable que sirve para el paso de los ciclos
+    let remaining_tr = [...tr];  // Tiempo restante de ráfaga
+    let actual_tl = [...tl];  // Tiempo de llegada actual
+    let remaining_n = n;  // Procesos restantes
 
     while (remaining_tr.some(time => time > 0)) {
-        if (completed === 0) {
+        if (remaining_n === 0) {
             proccess = new Array(n).fill(1);
-            completed = reamaing_n;
+            remaining_n = n;
         }
         let min_arrival = Infinity;
         let min_index = -1;
         for (let i = 0; i < n; i++) {
-            if (remaining_tr[i] > 0 && actual_tl[i] <= t_eje && tl[i] < min_arrival && proccess[i] !== 0) {
+            if (remaining_tr[i] > 0 && actual_tl[i] <= t_eje && tl[i] < min_arrival && proccess[i] != 0) {
                 min_arrival = tl[i];
                 min_index = i;
             }
@@ -124,44 +122,42 @@ function roundRobin(tl, tr, q) {
             t_eje += 1;
         } else {
             console.log(`Tiempo de llegada ${t_eje}: del procesos P${min_index + 1}`);
-
-            tiempo_inicio[completed] = t_eje; // Tener en cuenta para la grafica
-            procesos_ordenados[completed] = min_index + 1; 
-
-
-            let execute_time = Math.min(q, remaining_tr[min_index]);
+            tiempo_inicio.push(t_eje);  // Agregar el tiempo de inicio a la lista
+            procesos_ordenados.push(min_index + 1);  // Agregar el proceso ordenado
+            
+            const execute_time = Math.min(q, remaining_tr[min_index]);
             wt[min_index] += t_eje - actual_tl[min_index];
             t_eje += execute_time;
             remaining_tr[min_index] -= execute_time;
             ts[min_index] += t_eje - actual_tl[min_index];
+
+            tiempos_finalizacion.push(t_eje);  // Agregar el tiempo de finalización a la lista
+
             actual_tl[min_index] = t_eje;
-            completed -= 1;
+            remaining_n -= 1;
             proccess[min_index] = 0;
-
-            if (remaining_tr[min_index] === 0) {
-                reamaing_n -= 1;
-            }
-
-            tiempos_finalizacion[completed] = t_eje; //Tener en cuenta para la grafica
-
         }
     }
 
     console.log("P.No\t\tTiempo de ráfaga\t\tTiempo de llegada\t\tTiempo de espera\t\tTiempo de sistema");
     for (let i = 0; i < n; i++) {
-        console.log(`${i+1}\t\t\t${tr[i]}\t\t\t\t${tl[i]}\t\t\t\t${wt[i]}\t\t\t\t${ts[i]}`);
+        console.log(`${i + 1}\t\t\t${tr[i]}\t\t\t\t${tl[i]}\t\t\t\t${wt[i]}\t\t\t\t${ts[i]}`);
     }
 
-    let promedio_tw = wt.reduce((acc, curr) => acc + curr, 0) / n;
-    let promedio_ts = ts.reduce((acc, curr) => acc + curr, 0) / n;
+    const promedio_tw = wt.reduce((acc, val) => acc + val, 0) / n;
+    const promedio_ts = ts.reduce((acc, val) => acc + val, 0) / n;
     console.log(`El promedio del tiempo de espera es: ${promedio_tw.toFixed(2)}`);
     console.log(`El promedio del tiempo de sistema  es: ${promedio_ts.toFixed(2)}`);
-
+    console.log(`Tiempos de inicio: ${tiempo_inicio}\nProcesos ordenados: ${procesos_ordenados}\nTiempos de finalización: ${tiempos_finalizacion}`);
     
-    crearTable(tl, tr, wt, ts, n)
+    
+    crearTable(tl, tr, wt, ts, n);
 
-    datosGraficar(tiempo_inicio,procesos_ordenados,tiempos_finalizacion)
+    datosGraficar(tiempo_inicio,procesos_ordenados,tiempos_finalizacion);
+
+
 }
+
 
 
 
@@ -263,7 +259,7 @@ function guardarTiempos() {
 
     // Si no se encontraron errores, llamar a la función sjf()
     if (!errores) {
-        roundRobin(tiempoLlegada, tiempoRafaga, quantum);
+        round_robin(tiempoLlegada, tiempoRafaga, quantum);
     }
 }
 

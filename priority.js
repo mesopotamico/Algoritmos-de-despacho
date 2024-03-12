@@ -88,6 +88,14 @@ function crearTable(tl, tr, wt, ts, n, p) {
     // Agregar el contenedor a la página
     document.body.appendChild(contenedorTabla);
 
+    let promedioTW = document.createElement('p');
+    promedioTW.textContent = `El promedio del tiempo de espera es: ${promedio_g_tw}`;
+    document.body.appendChild(promedioTW);
+
+    let promedioTS = document.createElement('p');
+    promedioTS.textContent = `El promedio del tiempo de sistema es: ${promedio_g_ts}`;
+    document.body.appendChild(promedioTS);
+
     
 }
 
@@ -144,6 +152,10 @@ function priority(tl, tr, p) {
 
     let promedio_tw = wt.reduce((acc, curr) => acc + curr, 0) / n;
     let promedio_ts = ts.reduce((acc, curr) => acc + curr, 0) / n;
+
+    window.promedio_g_tw = promedio_tw;
+    window.promedio_g_ts = promedio_ts;
+
     console.log(`El promedio del tiempo de espera es: ${promedio_tw}`);
     console.log(`El promedio del tiempo de sistema  es: ${promedio_ts}`);
 
